@@ -82,3 +82,26 @@ new_data = pd.DataFrame(
 )
 y_pred = knn_classifier(X, y, new_data, 5)
 print(f"Predictions: {y_pred}")
+
+# Creamos un gráfico de dispersión para visualizar la especie predicha
+colors = ["red", "blue", "green"]
+classes = dataframe["especies"].unique()
+for i in range(len(classes)):
+    plt.scatter(
+        dataframe.loc[dataframe["especies"] == classes[i], "longitud_petalo"],
+        dataframe.loc[dataframe["especies"] == classes[i], "ancho_petalo"],
+        color=colors[i],
+        label=classes[i],
+    )
+plt.scatter(
+    new_data["longitud_petalo"],
+    new_data["ancho_petalo"],
+    color="black",
+    label="predicted",
+    marker="x",
+    s=100,
+)
+plt.xlabel("longitud del pétalo")
+plt.ylabel("ancho del pétalo")
+plt.legend(loc="best")
+plt.show()
